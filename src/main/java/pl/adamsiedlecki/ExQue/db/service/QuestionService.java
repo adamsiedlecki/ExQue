@@ -1,5 +1,6 @@
 package pl.adamsiedlecki.ExQue.db.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,8 +15,9 @@ import java.util.Optional;
 @Service
 public class QuestionService {
 
-    private QuestionRepo questionRepo;
+    private final QuestionRepo questionRepo;
 
+    @Autowired
     public QuestionService(QuestionRepo questionRepo) {
         this.questionRepo = questionRepo;
     }

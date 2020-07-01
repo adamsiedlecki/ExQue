@@ -1,9 +1,6 @@
 package pl.adamsiedlecki.ExQue.db.entity;
 
-import javax.annotation.processing.Generated;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,9 +11,13 @@ public class Question {
     @GeneratedValue
     private long id;
     private String content = "";
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "correct_answer_id", referencedColumnName = "id")
     private Answer correctAnswer;
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Answer> possibleAnswers;
     private String optionalImagePath;
+    @OneToOne(cascade = CascadeType.ALL)
     private ExamCategory examCategory;
 
     @Override
@@ -86,7 +87,7 @@ public class Question {
 
 
     public static final class QuestionBuilder {
-        private Question question;
+        private final Question question;
 
         private QuestionBuilder() {
             question = new Question();
