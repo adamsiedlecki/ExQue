@@ -17,6 +17,7 @@ public class Question {
     private Answer correctAnswer;
     private List<Answer> possibleAnswers;
     private String optionalImagePath;
+    private ExamCategory examCategory;
 
     @Override
     public boolean equals(Object o) {
@@ -33,6 +34,14 @@ public class Question {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getContent(), getCorrectAnswer(), getPossibleAnswers(), getOptionalImagePath());
+    }
+
+    public ExamCategory getExamCategory() {
+        return examCategory;
+    }
+
+    public void setExamCategory(ExamCategory examCategory) {
+        this.examCategory = examCategory;
     }
 
     public long getId() {
@@ -75,6 +84,7 @@ public class Question {
         this.optionalImagePath = optionalImagePath;
     }
 
+
     public static final class QuestionBuilder {
         private Question question;
 
@@ -111,8 +121,13 @@ public class Question {
             return this;
         }
 
+        public QuestionBuilder withExamCategory(ExamCategory examCategory) {
+            question.setExamCategory(examCategory);
+            return this;
+        }
+
         public QuestionBuilder but() {
-            return aQuestion().withId(question.getId()).withContent(question.getContent()).withCorrectAnswer(question.getCorrectAnswer()).withPossibleAnswers(question.getPossibleAnswers()).withOptionalImagePath(question.getOptionalImagePath());
+            return aQuestion().withId(question.getId()).withContent(question.getContent()).withCorrectAnswer(question.getCorrectAnswer()).withPossibleAnswers(question.getPossibleAnswers()).withOptionalImagePath(question.getOptionalImagePath()).withExamCategory(question.getExamCategory());
         }
 
         public Question build() {
