@@ -42,4 +42,35 @@ public class Answer {
     public int hashCode() {
         return Objects.hash(getId(), getContent());
     }
+
+
+    public static final class AnswerBuilder {
+        private Answer answer;
+
+        private AnswerBuilder() {
+            answer = new Answer();
+        }
+
+        public static AnswerBuilder anAnswer() {
+            return new AnswerBuilder();
+        }
+
+        public AnswerBuilder withId(long id) {
+            answer.setId(id);
+            return this;
+        }
+
+        public AnswerBuilder withContent(String content) {
+            answer.setContent(content);
+            return this;
+        }
+
+        public AnswerBuilder but() {
+            return anAnswer().withId(answer.getId()).withContent(answer.getContent());
+        }
+
+        public Answer build() {
+            return answer;
+        }
+    }
 }

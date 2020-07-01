@@ -72,4 +72,50 @@ public class ExamCategory {
     public int hashCode() {
         return Objects.hash(getId(), getName(), getDescription(), getOptionalImagePath(), getThemeColorHex());
     }
+
+
+    public static final class ExamCategoryBuilder {
+        private ExamCategory examCategory;
+
+        private ExamCategoryBuilder() {
+            examCategory = new ExamCategory();
+        }
+
+        public static ExamCategoryBuilder anExamCategory() {
+            return new ExamCategoryBuilder();
+        }
+
+        public ExamCategoryBuilder withId(long id) {
+            examCategory.setId(id);
+            return this;
+        }
+
+        public ExamCategoryBuilder withName(String name) {
+            examCategory.setName(name);
+            return this;
+        }
+
+        public ExamCategoryBuilder withDescription(String description) {
+            examCategory.setDescription(description);
+            return this;
+        }
+
+        public ExamCategoryBuilder withOptionalImagePath(String optionalImagePath) {
+            examCategory.setOptionalImagePath(optionalImagePath);
+            return this;
+        }
+
+        public ExamCategoryBuilder withThemeColorHex(String themeColorHex) {
+            examCategory.setThemeColorHex(themeColorHex);
+            return this;
+        }
+
+        public ExamCategoryBuilder but() {
+            return anExamCategory().withId(examCategory.getId()).withName(examCategory.getName()).withDescription(examCategory.getDescription()).withOptionalImagePath(examCategory.getOptionalImagePath()).withThemeColorHex(examCategory.getThemeColorHex());
+        }
+
+        public ExamCategory build() {
+            return examCategory;
+        }
+    }
 }

@@ -74,4 +74,49 @@ public class Question {
     public void setOptionalImagePath(String optionalImagePath) {
         this.optionalImagePath = optionalImagePath;
     }
+
+    public static final class QuestionBuilder {
+        private Question question;
+
+        private QuestionBuilder() {
+            question = new Question();
+        }
+
+        public static QuestionBuilder aQuestion() {
+            return new QuestionBuilder();
+        }
+
+        public QuestionBuilder withId(long id) {
+            question.setId(id);
+            return this;
+        }
+
+        public QuestionBuilder withContent(String content) {
+            question.setContent(content);
+            return this;
+        }
+
+        public QuestionBuilder withCorrectAnswer(Answer correctAnswer) {
+            question.setCorrectAnswer(correctAnswer);
+            return this;
+        }
+
+        public QuestionBuilder withPossibleAnswers(List<Answer> possibleAnswers) {
+            question.setPossibleAnswers(possibleAnswers);
+            return this;
+        }
+
+        public QuestionBuilder withOptionalImagePath(String optionalImagePath) {
+            question.setOptionalImagePath(optionalImagePath);
+            return this;
+        }
+
+        public QuestionBuilder but() {
+            return aQuestion().withId(question.getId()).withContent(question.getContent()).withCorrectAnswer(question.getCorrectAnswer()).withPossibleAnswers(question.getPossibleAnswers()).withOptionalImagePath(question.getOptionalImagePath());
+        }
+
+        public Question build() {
+            return question;
+        }
+    }
 }
