@@ -50,6 +50,7 @@ public class ExamCategoryApi {
                     MediaType.APPLICATION_XML_VALUE
             })
     public ResponseEntity<ExamCategory> getExamCategory(@PathVariable String id) {
+        id = id.trim();
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);
             Optional<ExamCategory> examCategory = examCategoryService.findById(exId);
@@ -63,13 +64,13 @@ public class ExamCategoryApi {
     }
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<ExamCategory> createExamCategory(@Valid @RequestBody ExamCategory examCategory) {
-        return new ResponseEntity<>(examCategoryService.save(examCategory), HttpStatus.OK);
+        return new ResponseEntity<>(examCategoryService.saveAndFlush(examCategory), HttpStatus.OK);
     }
 
-    @PutMapping(path = "/id", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @PutMapping(path = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<ExamCategory> updateExamCategory(@PathVariable String id, @Valid @RequestBody ExamCategory examCategory) {
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);

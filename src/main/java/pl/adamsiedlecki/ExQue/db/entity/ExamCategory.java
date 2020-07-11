@@ -75,7 +75,7 @@ public class ExamCategory {
 
 
     public static final class ExamCategoryBuilder {
-        private ExamCategory examCategory;
+        private final ExamCategory examCategory;
 
         private ExamCategoryBuilder() {
             examCategory = new ExamCategory();

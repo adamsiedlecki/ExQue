@@ -15,11 +15,14 @@ import java.util.Optional;
 @Service
 public class AnswerService {
 
-    private AnswerRepo answerRepo;
+    private final AnswerRepo answerRepo;
 
     @Autowired
     public AnswerService(AnswerRepo answerRepo) {
         this.answerRepo = answerRepo;
+        if (count() == 0) {
+
+        }
     }
 
     public List<Answer> findAll() {

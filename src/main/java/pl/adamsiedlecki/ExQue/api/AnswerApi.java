@@ -50,6 +50,7 @@ public class AnswerApi {
                     MediaType.APPLICATION_XML_VALUE
             })
     public ResponseEntity<Answer> getAnswer(@PathVariable String id) {
+        id = id.trim();
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);
             Optional<Answer> Answer = AnswerService.findById(exId);
@@ -63,14 +64,15 @@ public class AnswerApi {
     }
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Answer> createAnswer(@Valid @RequestBody Answer Answer) {
-        return new ResponseEntity<>(AnswerService.save(Answer), HttpStatus.OK);
+        return new ResponseEntity<>(AnswerService.saveAndFlush(Answer), HttpStatus.OK);
     }
 
     @PutMapping(path = "/id", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Answer> updateAnswer(@PathVariable String id, @Valid @RequestBody Answer Answer) {
+        id = id.trim();
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);
             Optional<Answer> AnswerOptional = AnswerService.findById(exId);

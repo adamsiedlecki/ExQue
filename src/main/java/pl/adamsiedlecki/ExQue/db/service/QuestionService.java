@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import pl.adamsiedlecki.ExQue.buildInData.QuestionList;
 import pl.adamsiedlecki.ExQue.db.entity.Question;
 import pl.adamsiedlecki.ExQue.db.repo.QuestionRepo;
 
@@ -20,6 +21,10 @@ public class QuestionService {
     @Autowired
     public QuestionService(QuestionRepo questionRepo) {
         this.questionRepo = questionRepo;
+        if (questionRepo.count() == 0) {
+            saveAll(new QuestionList());
+            flush();
+        }
     }
 
     public List<Question> findAll() {
