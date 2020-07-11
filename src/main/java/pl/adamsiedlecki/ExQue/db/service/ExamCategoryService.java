@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import pl.adamsiedlecki.ExQue.buildInData.ExamCategoriesList;
 import pl.adamsiedlecki.ExQue.db.entity.ExamCategory;
 import pl.adamsiedlecki.ExQue.db.repo.ExamCategoryRepo;
 
@@ -20,6 +21,11 @@ public class ExamCategoryService {
     @Autowired
     public ExamCategoryService(ExamCategoryRepo examCategoryRepo) {
         this.examCategoryRepo = examCategoryRepo;
+        System.out.println(examCategoryRepo.count() + "AAA");
+        if (examCategoryRepo.count() == 0) {
+            saveAll(new ExamCategoriesList());
+            flush();
+        }
     }
 
     public List<ExamCategory> findAll() {

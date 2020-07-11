@@ -31,7 +31,7 @@ public class AnswerApi {
             MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE
     })
-    public ResponseEntity<List<Answer>> getExamCategories(@RequestParam(value = "page", defaultValue = "1") int page,
+    public ResponseEntity<List<Answer>> getExamCategories(@RequestParam(value = "page", defaultValue = "0") int page,
                                                           @RequestParam(value = "limit", defaultValue = "50") int limit,
                                                           @RequestParam(value = "sort", defaultValue = "desc", required = false) String sort) {
         Pageable pageable;
@@ -57,7 +57,7 @@ public class AnswerApi {
                     .orElseGet(() -> new ResponseEntity<>(new Answer(), HttpStatus.NOT_FOUND));
 
         } else {
-            return new ResponseEntity<Answer>(new Answer(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Answer(), HttpStatus.BAD_REQUEST);
         }
 
     }
@@ -65,7 +65,7 @@ public class AnswerApi {
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Answer> createAnswer(@Valid @RequestBody Answer Answer) {
-        return new ResponseEntity<Answer>(AnswerService.save(Answer), HttpStatus.OK);
+        return new ResponseEntity<>(AnswerService.save(Answer), HttpStatus.OK);
     }
 
     @PutMapping(path = "/id", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
@@ -78,13 +78,13 @@ public class AnswerApi {
 
                 AnswerOptional.get().setContent(Answer.getContent());
 
-                return new ResponseEntity<Answer>(AnswerOptional.get(), HttpStatus.OK);
+                return new ResponseEntity<>(AnswerOptional.get(), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(new Answer(), HttpStatus.NOT_FOUND);
             }
 
         } else {
-            return new ResponseEntity<Answer>(new Answer(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Answer(), HttpStatus.BAD_REQUEST);
         }
     }
 

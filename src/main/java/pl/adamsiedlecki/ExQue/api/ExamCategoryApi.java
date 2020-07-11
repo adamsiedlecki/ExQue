@@ -31,7 +31,7 @@ public class ExamCategoryApi {
             MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE
     })
-    public ResponseEntity<List<ExamCategory>> getExamCategories(@RequestParam(value = "page", defaultValue = "1") int page,
+    public ResponseEntity<List<ExamCategory>> getExamCategories(@RequestParam(value = "page", defaultValue = "0") int page,
                                                                 @RequestParam(value = "limit", defaultValue = "50") int limit,
                                                                 @RequestParam(value = "sort", defaultValue = "desc", required = false) String sort) {
         Pageable pageable;
@@ -57,7 +57,7 @@ public class ExamCategoryApi {
                     .orElseGet(() -> new ResponseEntity<>(new ExamCategory(), HttpStatus.NOT_FOUND));
 
         } else {
-            return new ResponseEntity<ExamCategory>(new ExamCategory(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ExamCategory(), HttpStatus.BAD_REQUEST);
         }
 
     }
@@ -65,7 +65,7 @@ public class ExamCategoryApi {
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<ExamCategory> createExamCategory(@Valid @RequestBody ExamCategory examCategory) {
-        return new ResponseEntity<ExamCategory>(examCategoryService.save(examCategory), HttpStatus.OK);
+        return new ResponseEntity<>(examCategoryService.save(examCategory), HttpStatus.OK);
     }
 
     @PutMapping(path = "/id", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
@@ -81,13 +81,13 @@ public class ExamCategoryApi {
                 examCategoryOptional.get().setOptionalImagePath(examCategory.getOptionalImagePath());
                 examCategoryOptional.get().setThemeColorHex(examCategory.getThemeColorHex());
 
-                return new ResponseEntity<ExamCategory>(examCategoryOptional.get(), HttpStatus.OK);
+                return new ResponseEntity<>(examCategoryOptional.get(), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(new ExamCategory(), HttpStatus.NOT_FOUND);
             }
 
         } else {
-            return new ResponseEntity<ExamCategory>(new ExamCategory(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ExamCategory(), HttpStatus.BAD_REQUEST);
         }
     }
 
