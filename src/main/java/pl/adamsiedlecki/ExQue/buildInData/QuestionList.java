@@ -25,7 +25,7 @@ public class QuestionList extends ArrayList<Question> {
                 .aQuestion()
                 .withExamCategory(categories.get(1))
                 .withContent("What is a correct syntax to output \"Hello World\" in Python?")
-                .withCorrectAnswer(answers.get(5))
+                .withCorrectAnswer(answers.get(4))
                 .withPossibleAnswers(List.of(answers.get(4), answers.get(5), answers.get(6), answers.get(7)))
                 .build();
 

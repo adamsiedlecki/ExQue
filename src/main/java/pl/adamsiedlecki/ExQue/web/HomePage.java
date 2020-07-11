@@ -23,11 +23,8 @@ import org.springframework.core.env.Environment;
 @PageTitle("Home page")
 public class HomePage extends VerticalLayout {
 
-    //private VerticalLayout root;
-
     @Autowired
     public HomePage(Environment env) {
-        //root = new VerticalLayout();
         Label title = new Label("ExQue");
 
         Button codeButton = new Button("Github", new Icon(VaadinIcon.CODE));
@@ -39,12 +36,13 @@ public class HomePage extends VerticalLayout {
         header.setPadding(true);
         header.setSpacing(true);
 
-        Paragraph text = new Paragraph("API");
+        Anchor randomQuestion = new Anchor("random-question", "RANDOM QUESTION");
+        Paragraph apiSectionTitle = new Paragraph("API");
         Anchor answersLink = new Anchor("api/v1/answers", "api/v1/answers");
         Anchor questionsLink = new Anchor("api/v1/questions", "api/v1/questions");
         Anchor examCategoryLink = new Anchor("api/v1/exam-categories", "api/v1/exam-categories");
 
-        VerticalLayout content = new VerticalLayout(text, answersLink, questionsLink, examCategoryLink);
+        VerticalLayout content = new VerticalLayout(randomQuestion, apiSectionTitle, answersLink, questionsLink, examCategoryLink);
         content.setPadding(true);
 
         Paragraph description = new Paragraph("Project for storing questions and ABCD answers and sharing it via REST api. (ExQue - Exam Questions)");
@@ -52,6 +50,5 @@ public class HomePage extends VerticalLayout {
         footer.setPadding(true);
 
         add(header, content, footer);
-        //this.add(root);
     }
 }
