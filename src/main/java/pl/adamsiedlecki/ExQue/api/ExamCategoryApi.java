@@ -82,6 +82,8 @@ public class ExamCategoryApi {
                 examCategoryOptional.get().setOptionalImagePath(examCategory.getOptionalImagePath());
                 examCategoryOptional.get().setThemeColorHex(examCategory.getThemeColorHex());
 
+                examCategoryService.flush();
+
                 return new ResponseEntity<>(examCategoryOptional.get(), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(new ExamCategory(), HttpStatus.NOT_FOUND);
