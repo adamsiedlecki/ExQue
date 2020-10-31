@@ -20,11 +20,11 @@ import java.util.Optional;
 @RequestMapping("/api/v1/answers")
 public class AnswerApi {
 
-    private final AnswerService AnswerService;
+    private final AnswerService answerService;
 
     @Autowired
     public AnswerApi(AnswerService AnswerService) {
-        this.AnswerService = AnswerService;
+        this.answerService = AnswerService;
     }
 
     @GetMapping(produces = {
@@ -41,7 +41,7 @@ public class AnswerApi {
             pageable = PageRequest.of(page, limit, Sort.by("id").ascending());
         }
 
-        return new ResponseEntity<>(AnswerService.findAll(pageable).getContent(), HttpStatus.OK);
+        return new ResponseEntity<>(answerService.findAll(pageable).getContent(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}",
@@ -53,7 +53,7 @@ public class AnswerApi {
         id = id.trim();
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);
-            Optional<Answer> Answer = AnswerService.findById(exId);
+            Optional<Answer> Answer = answerService.findById(exId);
             return Answer.map(category -> new ResponseEntity<>(category, HttpStatus.OK))
                     .orElseGet(() -> new ResponseEntity<>(new Answer(), HttpStatus.NOT_FOUND));
 
@@ -66,19 +66,20 @@ public class AnswerApi {
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Answer> createAnswer(@Valid @RequestBody Answer Answer) {
-        return new ResponseEntity<>(AnswerService.saveAndFlush(Answer), HttpStatus.OK);
+        return new ResponseEntity<>(answerService.saveAndFlush(Answer), HttpStatus.OK);
     }
 
-    @PutMapping(path = "/id", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+    @PutMapping(path = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Answer> updateAnswer(@PathVariable String id, @Valid @RequestBody Answer Answer) {
         id = id.trim();
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);
-            Optional<Answer> AnswerOptional = AnswerService.findById(exId);
+            Optional<Answer> AnswerOptional = answerService.findById(exId);
             if (AnswerOptional.isPresent()) {
 
                 AnswerOptional.get().setContent(Answer.getContent());
+                answerService.flush();
 
                 return new ResponseEntity<>(AnswerOptional.get(), HttpStatus.OK);
             } else {
@@ -98,9 +99,9 @@ public class AnswerApi {
     public ResponseEntity<Void> deleteAnswer(@PathVariable String id) {
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);
-            Optional<Answer> AnswerOptional = AnswerService.findById(exId);
+            Optional<Answer> AnswerOptional = answerService.findById(exId);
             if (AnswerOptional.isPresent()) {
-                AnswerService.delete(AnswerOptional.get());
+                answerService.delete(AnswerOptional.get());
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
