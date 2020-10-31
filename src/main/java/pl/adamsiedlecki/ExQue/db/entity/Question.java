@@ -11,13 +11,13 @@ public class Question {
     @GeneratedValue
     private long id;
     private String content = "";
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "correct_answer_id", referencedColumnName = "id")
     private Answer correctAnswer;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private List<Answer> possibleAnswers;
     private String optionalImagePath;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     private ExamCategory examCategory;
 
     @Override
