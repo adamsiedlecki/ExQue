@@ -31,6 +31,7 @@ public class QuestionsApi {
             MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE
     })
+    @ResponseBody
     public ResponseEntity<List<Question>> getExamCategories(@RequestParam(value = "page", defaultValue = "0") int page,
                                                             @RequestParam(value = "limit", defaultValue = "50") int limit,
                                                             @RequestParam(value = "sort", defaultValue = "desc", required = false) String sort) {
@@ -49,6 +50,7 @@ public class QuestionsApi {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE
             })
+    @ResponseBody
     public ResponseEntity<Question> getQuestion(@PathVariable String id) {
         id = id.trim();
         if (NumberThings.isIntNumber(id)) {
@@ -65,12 +67,14 @@ public class QuestionsApi {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
     public ResponseEntity<Question> createQuestion(@Valid @RequestBody Question question) {
         return new ResponseEntity<>(questionService.saveAndFlush(question), HttpStatus.OK);
     }
 
     @PutMapping(path = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
     public ResponseEntity<Question> updateQuestion(@PathVariable String id, @Valid @RequestBody Question Question) {
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);
@@ -82,6 +86,7 @@ public class QuestionsApi {
                 QuestionOptional.get().setOptionalImagePath(Question.getOptionalImagePath());
                 QuestionOptional.get().setExamCategory(Question.getExamCategory());
                 QuestionOptional.get().setPossibleAnswers(Question.getPossibleAnswers());
+                questionService.flush(); //TODO put with relationships is problematic
 
                 return new ResponseEntity<>(QuestionOptional.get(), HttpStatus.OK);
             } else {
@@ -98,6 +103,7 @@ public class QuestionsApi {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE
             })
+    @ResponseBody
     public ResponseEntity<Void> deleteQuestion(@PathVariable String id) {
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);

@@ -31,6 +31,7 @@ public class AnswerApi {
             MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE
     })
+    @ResponseBody
     public ResponseEntity<List<Answer>> getExamCategories(@RequestParam(value = "page", defaultValue = "0") int page,
                                                           @RequestParam(value = "limit", defaultValue = "50") int limit,
                                                           @RequestParam(value = "sort", defaultValue = "desc", required = false) String sort) {
@@ -49,6 +50,7 @@ public class AnswerApi {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE
             })
+    @ResponseBody
     public ResponseEntity<Answer> getAnswer(@PathVariable String id) {
         id = id.trim();
         if (NumberThings.isIntNumber(id)) {
@@ -65,12 +67,14 @@ public class AnswerApi {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
     public ResponseEntity<Answer> createAnswer(@Valid @RequestBody Answer Answer) {
         return new ResponseEntity<>(answerService.saveAndFlush(Answer), HttpStatus.OK);
     }
 
     @PutMapping(path = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
     public ResponseEntity<Answer> updateAnswer(@PathVariable String id, @Valid @RequestBody Answer Answer) {
         id = id.trim();
         if (NumberThings.isIntNumber(id)) {
@@ -96,6 +100,7 @@ public class AnswerApi {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE
             })
+    @ResponseBody
     public ResponseEntity<Void> deleteAnswer(@PathVariable String id) {
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);

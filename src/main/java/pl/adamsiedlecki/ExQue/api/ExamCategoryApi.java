@@ -31,6 +31,7 @@ public class ExamCategoryApi {
             MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE
     })
+    @ResponseBody
     public ResponseEntity<List<ExamCategory>> getExamCategories(@RequestParam(value = "page", defaultValue = "0") int page,
                                                                 @RequestParam(value = "limit", defaultValue = "50") int limit,
                                                                 @RequestParam(value = "sort", defaultValue = "desc", required = false) String sort) {
@@ -49,6 +50,7 @@ public class ExamCategoryApi {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE
             })
+    @ResponseBody
     public ResponseEntity<ExamCategory> getExamCategory(@PathVariable String id) {
         id = id.trim();
         if (NumberThings.isIntNumber(id)) {
@@ -65,12 +67,14 @@ public class ExamCategoryApi {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
     public ResponseEntity<ExamCategory> createExamCategory(@Valid @RequestBody ExamCategory examCategory) {
         return new ResponseEntity<>(examCategoryService.saveAndFlush(examCategory), HttpStatus.OK);
     }
 
     @PutMapping(path = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
     public ResponseEntity<ExamCategory> updateExamCategory(@PathVariable String id, @Valid @RequestBody ExamCategory examCategory) {
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);
@@ -99,6 +103,7 @@ public class ExamCategoryApi {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE
             })
+    @ResponseBody
     public ResponseEntity<Void> deleteExamCategory(@PathVariable String id) {
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);
