@@ -10,7 +10,7 @@ public class Question {
     @Id
     @GeneratedValue
     private long id;
-    private String content = "";
+    private String content;
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "correct_answer_id", referencedColumnName = "id")
     private Answer correctAnswer;

@@ -12,7 +12,6 @@ import pl.adamsiedlecki.ExQue.db.entity.Question;
 import pl.adamsiedlecki.ExQue.db.service.QuestionService;
 import pl.adamsiedlecki.ExQue.util.NumberThings;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,14 +67,14 @@ public class QuestionsApi {
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public ResponseEntity<Question> createQuestion(@Valid @RequestBody Question question) {
+    public ResponseEntity<Question> createQuestion(@RequestBody Question question) {
         return new ResponseEntity<>(questionService.saveAndFlush(question), HttpStatus.OK);
     }
 
     @PutMapping(path = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public ResponseEntity<Question> updateQuestion(@PathVariable String id, @Valid @RequestBody Question Question) {
+    public ResponseEntity<Question> updateQuestion(@PathVariable String id, @RequestBody Question Question) {
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);
             Optional<Question> QuestionOptional = questionService.findById(exId);

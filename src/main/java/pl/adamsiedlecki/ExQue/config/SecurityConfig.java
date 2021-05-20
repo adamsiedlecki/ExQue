@@ -18,6 +18,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/accessDenied/**", "/vaadinServlet/**").permitAll()
                 .antMatchers("/api/v1").permitAll()
                 .antMatchers("/ui").permitAll()
-        ;
+                .antMatchers("*/*").permitAll();
     }
 }

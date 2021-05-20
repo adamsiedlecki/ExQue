@@ -12,7 +12,6 @@ import pl.adamsiedlecki.ExQue.db.entity.ExamCategory;
 import pl.adamsiedlecki.ExQue.db.service.ExamCategoryService;
 import pl.adamsiedlecki.ExQue.util.NumberThings;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,14 +67,14 @@ public class ExamCategoryApi {
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public ResponseEntity<ExamCategory> createExamCategory(@Valid @RequestBody ExamCategory examCategory) {
+    public ResponseEntity<ExamCategory> createExamCategory(@RequestBody ExamCategory examCategory) {
         return new ResponseEntity<>(examCategoryService.saveAndFlush(examCategory), HttpStatus.OK);
     }
 
     @PutMapping(path = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public ResponseEntity<ExamCategory> updateExamCategory(@PathVariable String id, @Valid @RequestBody ExamCategory examCategory) {
+    public ResponseEntity<ExamCategory> updateExamCategory(@PathVariable String id, @RequestBody ExamCategory examCategory) {
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);
             Optional<ExamCategory> examCategoryOptional = examCategoryService.findById(exId);

@@ -11,7 +11,7 @@ public class Answer {
     @Id
     @GeneratedValue
     private long id;
-    private String content = "";
+    private String content;
 
     public long getId() {
         return id;
@@ -45,7 +45,7 @@ public class Answer {
 
 
     public static final class AnswerBuilder {
-        private Answer answer;
+        private final Answer answer;
 
         private AnswerBuilder() {
             answer = new Answer();
