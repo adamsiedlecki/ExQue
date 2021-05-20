@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.ExQue.swagger;
+package pl.adamsiedlecki.ExQue.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
