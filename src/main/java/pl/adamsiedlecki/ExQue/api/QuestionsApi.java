@@ -31,9 +31,9 @@ public class QuestionsApi {
             MediaType.APPLICATION_XML_VALUE
     })
     @ResponseBody
-    public ResponseEntity<List<Question>> getExamCategories(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                            @RequestParam(value = "limit", defaultValue = "50") int limit,
-                                                            @RequestParam(value = "sort", defaultValue = "desc", required = false) String sort) {
+    public ResponseEntity<List<Question>> getQuestions(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                       @RequestParam(value = "limit", defaultValue = "50") int limit,
+                                                       @RequestParam(value = "sort", defaultValue = "desc", required = false) String sort) {
         Pageable pageable;
         if (sort.equals("desc")) {
             pageable = PageRequest.of(page, limit, Sort.by("id").descending());
