@@ -17,12 +17,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/answers")
-public class AnswerApi {
+public class AnswersApi {
 
     private final AnswerService answerService;
 
     @Autowired
-    public AnswerApi(AnswerService AnswerService) {
+    public AnswersApi(AnswerService AnswerService) {
         this.answerService = AnswerService;
     }
 

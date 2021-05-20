@@ -17,12 +17,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/exam-categories")
-public class ExamCategoryApi {
+public class ExamCategoriesApi {
 
     private final ExamCategoryService examCategoryService;
 
     @Autowired
-    public ExamCategoryApi(ExamCategoryService examCategoryService) {
+    public ExamCategoriesApi(ExamCategoryService examCategoryService) {
         this.examCategoryService = examCategoryService;
     }
 
