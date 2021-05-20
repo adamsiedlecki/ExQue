@@ -74,7 +74,7 @@ public class AnswersApi {
     @PutMapping(path = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public ResponseEntity<Answer> updateAnswer(@PathVariable String id, @RequestBody Answer Answer) {
+    public ResponseEntity<Answer> putAnswer(@PathVariable String id, @RequestBody Answer Answer) {
         id = id.trim();
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);

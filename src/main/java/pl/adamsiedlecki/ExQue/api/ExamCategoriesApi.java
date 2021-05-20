@@ -74,7 +74,7 @@ public class ExamCategoriesApi {
     @PutMapping(path = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public ResponseEntity<ExamCategory> updateExamCategory(@PathVariable String id, @RequestBody ExamCategory examCategory) {
+    public ResponseEntity<ExamCategory> putExamCategory(@PathVariable String id, @RequestBody ExamCategory examCategory) {
         if (NumberThings.isIntNumber(id)) {
             Long exId = Long.parseLong(id);
             Optional<ExamCategory> examCategoryOptional = examCategoryService.findById(exId);
